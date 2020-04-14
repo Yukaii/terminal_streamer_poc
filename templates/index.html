@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Streamer POC</title>
+  <style>
+    h1 {
+      font-size: 36px;
+    }
+
+    #form {
+      font-family: monospace;
+      font-size: 18px;
+
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <h1>Terminal Streamer POC</h1>
+
+    <label for="args">Program arguments</label>
+    <input type="text" name="args" placeholder="--args">
+
+    <button>Run</button>
+  </form>
+
+  <div id="terminal"></div>
+</body>
+</html>
