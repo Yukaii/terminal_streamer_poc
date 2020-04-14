@@ -15,6 +15,18 @@
 
       text-align: center;
     }
+
+    #terminal {
+      display: block;
+      margin: 0 auto;
+      outline: none;
+      font-size: 20px;
+      margin-top: 40px;
+      font-family: monospace;
+      resize: none;
+      background-color: #333;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -24,9 +36,34 @@
     <label for="args">Program arguments</label>
     <input type="text" name="args" placeholder="--args">
 
-    <button>Run</button>
+    <button type="submit">Run</button>
   </form>
 
-  <div id="terminal"></div>
+  <textarea id="terminal" readonly rows="15" cols="50">
+  </textarea>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+window.onload = function () {
+  var socket = io.connect();
+
+  var terminal = document.querySelector('#terminal')
+  var button = document.querySelector('#form button[type="submit"]')
+  var input = document.querySelector('#form input[name="args"]')
+
+  button.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    socket.emit('run', { args: input.value })
+  })
+
+  var val = ''
+  socket.on('data', function (msg) {
+    terminal.value = val += (msg.data + '\n')
+
+    terminal.scrollTop = terminal.scrollHeight
+  })
+}
+</script>
 </body>
 </html>
